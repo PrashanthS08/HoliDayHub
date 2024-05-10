@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Welcome to Our Website</title>
+    <style>
+      body {
+        background-image: url("https://wallpaperaccess.com/full/2592094.jpg");
+        background-size: cover;
+        height: 100vh;
+        text-align: center;
+      }
+
+      h1 {
+        color: black;
+        margin-top: 50px;
+      }
+
+	  .btn {
+		font-family: "Roboto",sans-serif;
+		font-size: 18px;
+		font-weight:bold;
+		background: #1E90FF;
+		width:160px;
+		padding:20px;
+		text-align:centre;
+		text-decoration:none;
+		text-transform:uppercase;
+		color:#fff;
+		border-radius:5px;
+		cursor:pointer;
+		box-shadow: 0 0 10px rgba(0,0,0,0.1);
+		-webkit-transition-duration:0.3s;
+		transition-duration:0.3s;
+		-webkit-transition-property:box-shadow,trasform;
+		transition-property:box-shadow,trasform;
+	}
+	.btn:hover,.btn:focus, .btn:active{
+	box-shadow: 0 0 20px rgba(0,0,0,0.5);
+	-webkit-transform:scale(1.1);
+	transform:scale(1.1)
+	}
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to Fantastic Journeys</h1>
+	<a href="file:///C:/Users/VTU/OneDrive/Desktop/HolidayHubFinal/LogIn%20Module/LogIn%20Module/index.html" class="btn"> Continue</a>
+	</a>
+	
+	
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("close-popup").addEventListener("click", function() {
+          document.querySelector(".popup").style.display = "none";
+        });
+
+        document.querySelector(".popup").style.display = "block";
+      });
+    </script>
+  </body>
+</html>

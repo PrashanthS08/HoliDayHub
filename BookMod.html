@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booking Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-image: url("https://www.pinclipart.com/picdir/big/212-2127349_tour-travel-png-vectors-tours-and-travels-png.png");
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+      }
+      
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 30px;
+        color: #fff;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+      }
+      
+      form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: rgba(255,255,255,0.9);
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px #888888;
+      }
+      
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="date"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+      
+      input[type="number"] {
+        width: 80px;
+      }
+      
+      select {
+        height: 40px;
+      }
+      
+      textarea {
+        height: 100px;
+      }
+      
+      button[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        padding: 10px 16px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      
+      button[type="submit"]:hover {
+        background-color: #3e8e41;
+      }
+    </style>
+	<script>
+		function displayHotelCost() {
+  const hotelSelect = document.getElementById("hotel");
+  const hotelCostSpan = document.getElementById("HotelCost");
+  const selectedOption = hotelSelect.options[hotelSelect.selectedIndex];
+  const hotelCost = selectedOption.getAttribute("data-cost");
+  hotelCostSpan.innerHTML = hotelCost;
+  calculateTotal();
+}
+
+	</script>
+<script>
+  function displayTransportationCost() {
+    var transportationSelect = document.getElementById("transportation");
+    var transportationCost = parseInt(transportationSelect.options[transportationSelect.selectedIndex].value);
+
+    document.getElementById("transportationCost").textContent = transportationCost;
+
+    calculateTotal();
+  }
+
+  function calculateTotal() {
+    var destinationSelect = document.getElementById("to");
+    var destinationPrice = parseInt(destinationSelect.options[destinationSelect.selectedIndex].getAttribute("data-price").replace(/,/g, ""));
+    
+    var hotelSelect = document.getElementById("hotel");
+    var hotelCost = parseInt(hotelSelect.options[hotelSelect.selectedIndex].getAttribute("data-cost").replace(/,/g, ""));
+    
+    var roomTypeSelect = document.getElementById("roomtype");
+    var roomTypeMultiplier = parseInt(roomTypeSelect.options[roomTypeSelect.selectedIndex].getAttribute("data-multiplier"));
+
+    var transportationCost = parseInt(document.getElementById("transportationCost").textContent);
+
+    var totalCost = destinationPrice + (hotelCost * roomTypeMultiplier) + transportationCost;
+
+    document.getElementById("price").value = totalCost.toLocaleString('en-IN', { maximumFractionDigits: 2, style: 'currency', currency: 'INR' });
+  }
+
+  function calculatePrice() {
+    calculateTotal();
+  }
+</script>
+  </head>
+  <body>
+    <h1>HolidayHub Booking Form</h1>
+    <form action="billgen.html" method="post" name="google-sheet">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required>
+      
+      <label for="from">Address:</label>
+      <input type="text" id="from" name="address" required>
+      
+ <label for="to">Destination:</label>
+<select id="to" name="destination" required onchange="calculatePrice()">
+	<option value="">Select an option</option>
+	<option value="ATHENS" data-price="2,23,999">ATHENS</option>
+	<option value="MYSURU PALACE" data-price="10,999">MYSURU PALACE</option>
+	<option value="PHILIPPINES" data-price="1,68,999">PHILIPPINES</option>
+	<option value="TAJ MAHAL" data-price="15,999">TAJ MAHAL</option>
+	<option value="GOA" data-price="19,999">GOA</option>
+	<option value="SYDNEY" data-price="3,56,999">SYDNEY</option>
+	<option value="ICELAND" data-price="8,89,999">ICELAND</option>
+	<option value="COORG" data-price="7,999">COORG</option>
+	<option value="GREENLAND" data-price="1,75,999">GREENLAND</option>
+	<option value="PONDICHERRY" data-price="5,999">PONDICHERRY</option>
+	<option value="LOS ANGELES" data-price="4,56,999">LOS ANGELES</option>
+	<option value="KERALA" data-price="8,999">KERALA</option>
+	<option value="MURUDESHWARA" data-price="7,990">MURUDESHWARA</option>
+	<option value="NEW YORK" data-price="6,87,999">NEW YORK</option>
+	<option value="DUBAI" data-price="12,899">DUBAI</option>
+	<option value="ABU DHABI" data-price="16,888">ABU DHABI</option>
+</select>
+      <label for="departure">Departure Date:</label>
+      <input type="date" id="departure" name="departure" required>
+      
+      <label for="adults">Adults:</label>
+      <input type="number" id="adults" name="adults" min="1" max="10" required>
+      
+      <label for="children">Children:</label>
+      <input type="number" id="children" name="children" min="0" max="10" required>
+	  
+<label for="transportation">Select your transportation:</label>
+<select id="transportation" name="transportation" onchange="displayTransportationCost()">
+  <optgroup label="Flight">
+    <option value="6999">Economy(Flight)</option>
+    <option value="7999">Business(Flight)</option>
+    <option value="9999">First Class(Flight)</option>
+  </optgroup>
+  <optgroup label="Train">
+    <option value="799">Local(Train)</option>
+    <option value="1589">Express(Train)</option>
+    <option value="1999">Bullet Train</option>
+  </optgroup>
+  <optgroup label="Car">
+    <option value="2599">Sedan(Car)</option>
+    <option value="3500">SUV(Car)</option>
+    <option value="4199">Convertible(Car)</option>
+  </optgroup>
+  <optgroup label="None">
+    <option value="0">None</option>
+  </optgroup>
+</select>
+
+<p>Transportation Cost: ₹<span id="transportationCost" name="transportationCost">0</span></p>
+
+
+  
+     <label for="hotel">Hotel Accommodation:</label>
+<select id="hotel" name="hotel" onchange="displayHotelCost()">
+	<option value="Not Selected">Select an option</option>
+	<option value="Hotel Edison" data-cost="8,999">Hotel Edison</option>
+	<option value="Fortune" data-cost="1,799">Fortune</option>
+	<option value="Belmont Hotel Mania" data-cost="12,999">Belmont Hotel Mania</option>
+	<option value="Taj Hotel" data-cost="2,499">Taj Hotel</option>
+	<option value="Sheraton Gateway Los Angeles Hotel" data-cost="13,621">Sheraton Gateway Los Angeles Hotel</option>
+	<option value="Crowne Plaza Sydney Coogee Beach" data-cost="18,379">Crowne Plaza Sydney Coogee Beach</option>
+	<option value="The Zuri Kumarakon Kerala resort" data-cost="17,847">The Zuri Kumarakon Kerala resort</option>
+	<option value="Radisson Resort Pondicherry Bay" data-cost="15,420">Radisson Resort Pondicherry Bay</option>
+	<option value="Hyde Hotel Dubai" data-cost="25,561">Hyde Hotel Dubai</option>
+	<option value="Grand Millenium Al Wahda" data-cost="11,900">Grand Millenium Al Wahda</option>
+	<option value="Armani Hotel Dubai" data-cost="63,525">Armani Hotel Dubai</option>
+	<option value="The Oberoi" data-cost="16,520">The Oberoi</option>
+	<option value="None" data-cost="0">None</option>
+</select>
+<p>Hotel Cost: ₹<span id="HotelCost" name="hotelCost">0</span></p>
+
+
+<label for="roomtype">Room Type:</label>
+<select id="roomtype" name="roomtype" onchange="calculateTotal(); generateRoomNumber();">
+	<option value="single" data-multiplier="1">Single</option>
+	<option value="double" data-multiplier="2">Double</option>
+	<option value="suite" data-multiplier="3">Suite</option>
+</select>   
+
+<label for="roomno">Room Number:</label>
+<input type="text" id="roomno" name="roomno" readonly>
+
+<label for="specialrequests">Special Requests:</label>
+<textarea id="specialrequests" name="specialrequests"></textarea>
+
+	  
+	  <label for="price">Total Price:</label>
+	<input type="text" id="price" name="price" readonly>
+      
+      <button type="submit" name="submit">PayNow</button>
+    </form>
+	<script>
+  function generateRoomNumber() {
+    const roomType = document.getElementById("roomtype");
+    const multiplier = roomType.options[roomType.selectedIndex].dataset.multiplier;
+    const roomNumber = Math.floor(Math.random() * 400) * multiplier;
+    document.getElementById("roomno").value = roomNumber;
+  }
+</script>
+
+	<script>
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyU6RMWtMNi4pMauvG60nvUBK9Avmy8dJzYT2cybcNi9w4_hp9RGGdIoJDFlQ6fSwuZ/exec';
+const form = document.forms['google-sheet'];
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  
+  const formData = new FormData(form);
+  for (let [key, value] of formData.entries()) {
+    localStorage.setItem(key, value);
+  }
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => {
+      alert("Thanks for Paying...!!Here's your Bill..!!");
+	  window.location.href = 'billgen.html';
+    })
+    .catch(error => console.error('Error!', error.message));
+});
+</script>
+<script>
+    // read the URL parameter
+    const params = new URLSearchParams(window.location.search);
+    const destination = params.get('destination');
+
+    // select the option with the matching value
+    const selectElement = document.getElementById('to');
+    const options = selectElement.options;
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value === destination) {
+            selectElement.selectedIndex = i;
+            break;
+        }
+    }
+</script>
+  </body>
+</html>

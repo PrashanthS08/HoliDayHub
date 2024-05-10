@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Page</title>
+	<style>
+		body {
+		background-image: url("https://lastminutecontinue.com/wp-content/uploads/2017/07/Website-Browsing.jpg");
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			margin: 0;
+			padding: 0;
+		}
+		
+		h1 {
+			margin-bottom: 20px;
+		}
+	.box1 {
+		background: linear-gradient(to right, #c7ccd5, #e5e5e5);
+		border-radius: 10px;
+		padding: 20px;
+		box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+	}
+
+	.box1 h1 {
+		margin-top: 0;
+	}
+
+	.box1 button {
+		background-color: #008CBA;
+		color: white;
+		padding: 10px 15px;
+		margin-top: 10px;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		font-size: 14px;
+	}
+
+	.box1 button:hover {
+		background-color: #006080;
+	}
+		.popup {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: white;
+			border: 1px solid #ccc;
+			padding: 20px;
+			box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			z-index: 999;
+			visibility: hidden;
+		}
+
+		.popup h2 {
+			margin-top: 0;
+		}
+
+		.popup p {
+			margin-bottom: 20px;
+		}
+
+		.popup button {
+			background-color: #008CBA;
+			color: white;
+			padding: 10px 15px;
+			margin-top: 10px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+
+		.popup button:hover {
+			background-color: #006080;
+		}
+	</style>
+</head>
+<body>
+	<div class="box1">
+  <h1>Do you wish to keep browsing our vacation website</h1>
+</div>
+
+
+	<div style="display: flex; justify-content: center; align-items: center; height: 100px;">
+  <button id="login-button" style="background-color: #008CBA; color: white; font-size: 24px; border-radius: 20px; padding: 20px 50px; border: none; box-shadow: 0px 2px 5px rgba(0,0,0,0.3); cursor: pointer;">Yes..!!</button>
+</div>
+
+
+	<div class="popup" id="popup">
+		<h2>Please log in before you continue</h2>
+		<p>You must be logged in to access this page.</p>
+		<button id="close-popup">OK</button>
+	</div>
+
+	<script>
+		var loginButton = document.getElementById("login-button");
+		var popup = document.getElementById("popup");
+		var closePopupButton = document.getElementById("close-popup");
+
+		loginButton.addEventListener("click", function() {
+			popup.style.visibility = "visible";
+		});
+
+		closePopupButton.addEventListener("click", function() {
+			popup.style.visibility = "hidden";
+			window.location.href = "1.html";
+		});
+	</script>
+</body>
+</html>

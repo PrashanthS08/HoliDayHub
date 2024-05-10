@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Account</title>
+	<style>
+		body {
+    background-image: url("https://dm0qx8t0i9gc9.cloudfront.net/thumbnails/video/Vv03xyNwg/videoblocks-travel-and-tourism-abstract-background_bbkky7ydw_thumbnail-1080_01.png");
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+		.account-box {
+    width: 550px;
+    height: 550px;
+    background-color: #e5f3f9;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    padding: 20px;
+    box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+		.account-box h2 {
+			text-align: center;
+			color: #333;
+			margin-top: 0;
+		}
+
+		.account-box input[type=text], 
+		.account-box input[type=password] {
+			width: 100%;
+			padding: 12px 20px;
+			margin: 8px 0;
+			display: inline-block;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+		}
+
+		.account-box input[type=button] {
+			background-color: #4CAF50;
+			color: white;
+			padding: 14px 20px;
+			margin: 8px 0;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			width: 50%;
+		}
+		 button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+	</style>
+</head>
+<body>
+	<div class="account-box">
+		<h2>Create Account</h2>
+		<form action="1.html" method="post" name="google-sheet">
+			<label for="new_username">New Username:</label>
+			<input type="text" id="new_username" name="new_username"><br><br>
+			<label for="new_password">New Password:</label>
+			<input type="password" id="new_password" name="new_password"><br><br>
+			<label for="email">Email:</label>
+			<input type="text" id="email" name="email"><br><br>
+			<label for="phone">Mobile:</label>
+			<input type="text" id="phone" name="phone"><br><br>
+			<button class="button" type="button" id="createAccountButton">Create Account</button>
+		</form>
+	</div>
+
+	<script>
+	document.getElementById("createAccountButton").addEventListener("click", function(event) {
+		event.preventDefault(); // Prevent the form from submitting normally
+		createAccount(); // Call the createAccount function
+	});
+
+	function createAccount() {
+		var newUsername = document.getElementById("new_username").value;
+		var newPassword = document.getElementById("new_password").value;
+
+		// save username and password to local storage
+		localStorage.setItem(newUsername, newPassword);
+		const scriptURL = 'https://script.google.com/macros/s/AKfycbztgxBIOVZIQib6TNLWgcKZtPR3AsQc7pgnsRzILvrVbscwGSKka2_VFSzFmooIXYUF/exec';
+		const form = document.forms['google-sheet'];
+
+		fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+		.then(response => {
+			alert("Account created successfully...!!!");
+			window.location.href = '1.html';
+		})
+		.catch(error => {
+			console.error('Error!', error.message);
+		});
+	}
+	</script>
+</body>
+
+
+
+</html>
